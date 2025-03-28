@@ -3,7 +3,7 @@ name: Deploy Frontend to AWS EC2
 on:
   push:
     branches:
-      - main  # main 브랜치에 푸시될 때 동작
+      - main
 
 jobs:
   deploy:
@@ -22,13 +22,13 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ap-northeast-2
 
-    # 3. 빌드 파일 압축 (HTML과 스크립트 포함)
+    # 3. 빌드 파일 압축
     - name: Archive application
       run: zip -r build-fe.zip .  # 모든 파일 압축
 
     # 4. S3에 파일 업로드
     - name: Upload to S3
-      run: aws s3 cp project.zip s3://0903-sally.lee-project/build-fe.zip
+      run: aws s3 cp build-fe.zip s3://0903-sally.lee-project/build-fe.zip
 
     # 5. CodeDeploy 배포 트리거
     - name: Deploy to EC2 via CodeDeploy
@@ -36,5 +36,6 @@ jobs:
         aws deploy create-deployment \
           --application-name codedeploy-project-sally0903 \
           --deployment-group-name codedeploy-project-sally0903-group \
+          --deployment-config-name CodeDeployDefault.AllAtOnce \
           --s3-location bucket=0903-sally.lee-project,bundleType=zip,key=build-fe.zip \
           --region ap-northeast-2
