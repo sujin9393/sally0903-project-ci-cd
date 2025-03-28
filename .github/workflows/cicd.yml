@@ -24,11 +24,11 @@ jobs:
 
     # 3. 빌드 파일 압축 (HTML과 스크립트 포함)
     - name: Archive application
-      run: zip -r project.zip .  # 모든 파일 압축
+      run: zip -r build-fe.zip .  # 모든 파일 압축
 
     # 4. S3에 파일 업로드
     - name: Upload to S3
-      run: aws s3 cp project.zip s3://0903-sally.lee-project/project.zip
+      run: aws s3 cp project.zip s3://0903-sally.lee-project/build-fe.zip
 
     # 5. CodeDeploy 배포 트리거
     - name: Deploy to EC2 via CodeDeploy
