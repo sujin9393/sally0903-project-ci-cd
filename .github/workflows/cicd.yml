@@ -36,5 +36,5 @@ jobs:
         aws deploy create-deployment \
           --application-name codedeploy-project-sally0903 \
           --deployment-group-name codedeploy-project-sally0903-group \
-          --s3-location bucket=0903-sally.lee-project,bundleType=zip,key=project.zip \
+          --s3-location bucket=0903-sally.lee-project,bundleType=zip,key=build-fe.zip \
           --region ap-northeast-2
