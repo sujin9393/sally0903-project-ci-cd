@@ -28,13 +28,13 @@ jobs:
 
     # 4. S3에 파일 업로드
     - name: Upload to S3
-      run: aws s3 cp project.zip s3://my-app-bucket/project.zip  # S3 버킷 이름 수정
+      run: aws s3 cp project.zip s3://0903-sally.lee-project/project.zip
 
     # 5. CodeDeploy 배포 트리거
     - name: Deploy to EC2 via CodeDeploy
       run: |
         aws deploy create-deployment \
-          --application-name my-frontend-app \
-          --deployment-group-name my-frontend-group \
-          --s3-location bucket=my-app-bucket,bundleType=zip,key=project.zip \
+          --application-name codedeploy-project-sally0903 \
+          --deployment-group-name codedeploy-project-sally0903-group \
+          --s3-location bucket=0903-sally.lee-project,bundleType=zip,key=project.zip \
           --region ap-northeast-2
